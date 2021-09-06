@@ -5,7 +5,9 @@ on:
   push:
     branches:
       - 'master'
-    
+  
+  repository_dispatch:
+
 jobs:
 
   job1:
@@ -16,4 +18,4 @@ jobs:
 
       - name: step1
         run: |          
-          echo ::set-output "coucou"
+          echo "::debug::Hi there!"
