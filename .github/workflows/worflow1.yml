@@ -13,7 +13,9 @@ jobs:
 
     steps:
 
-      - name: step1
+      - uses: actions/checkout@v2
+
+      - name: push job to github-tasks
         run: |          
           echo "::debug::Hi there!"
           pwd
