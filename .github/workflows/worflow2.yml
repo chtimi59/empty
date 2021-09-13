@@ -25,4 +25,5 @@ jobs:
           script: |
             console.log(context.payload.client_payload)
             core.setFailed('Ceci est une error')
+            core.error('This is a bad error. This will also fail the build.')
 
