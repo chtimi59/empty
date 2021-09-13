@@ -2,9 +2,6 @@
 name: worflow2
 
 on:
-  push:
-    branches:
-      - 'master'
   
   repository_dispatch:
     types: [MyEvent]
