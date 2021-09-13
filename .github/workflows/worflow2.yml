@@ -23,6 +23,6 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
-          console.log(context.payload.client_payload)
-          core.setFailed('Ceci est une error')
+            console.log(context.payload.client_payload)
+            core.setFailed('Ceci est une error')
 
