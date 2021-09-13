@@ -5,10 +5,6 @@ on:
   push:
     branches:
       - 'master'
-  
-  repository_dispatch:
-    types: [MyEvent]
-
 jobs:
 
   job1:
@@ -20,4 +16,12 @@ jobs:
       - name: step1
         run: |          
           echo "::debug::Hi there!"
-          echo "::debug::payload: ${{ toJson(github.event.client_payload) }}"
+          echo "::debug::where ami ? ${{ pwd }}"
+          curl -X 'POST' \
+            'http://192.168.56.2:7001/start?id=dbe378d099de41f4a2f8d24c71a38087' \
+            -H 'accept: application/json' \
+            -H 'Authorization: Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjMwNjc3NzIsImlzcyI6Imh0dHBzOi8vdXRpbGl0aWVzLmthZGlza2EuY29tLyIsImF1ZCI6Imh0dHBzOi8vdXRpbGl0aWVzLmthZGlza2EuY29tLyIsImlhdCI6MTYzMTUzMTc3Miwic3ViIjoiYXBpa2V5In0.cKhQXhswjV3_TuiUajc8e_ggt8QFh5BLFaoK7GY3frQhib91dVyBOo9zbE9-fPy40w97aS5Nl0ogFvXopODaEQ' \
+            -d ''
+
+
+
