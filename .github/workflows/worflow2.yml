@@ -19,8 +19,7 @@ jobs:
           echo "::debug::Hi there!"
           echo "::debug::payload: ${{ toJson(github.event.client_payload) }}"
       
-      - name: script
-        uses: actions/github-script@v3
-          with:
-            script: |
-                console.log("This is a script");
+      - name: View context attributes
+        uses: actions/github-script@v4
+        with:
+          script: console.log(context)
