@@ -18,12 +18,10 @@ jobs:
       - name: Push job to github-tasks
         run: |          
           echo "::debug::Hi there!"
-          pwd
-          ls
 
           id=$(curl -X 'POST' \
             "https://internals.ca.jdo-dev.org/job" \
-            -q \
+            -sS \
             -H 'accept: application/json' \
             -H 'Authorization: Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjMxMDc5NDEsImlzcyI6Imh0dHBzOi8vdXRpbGl0aWVzLmthZGlza2EuY29tLyIsImF1ZCI6Imh0dHBzOi8vdXRpbGl0aWVzLmthZGlza2EuY29tLyIsImlhdCI6MTYzMTU3MTk0MSwic3ViIjoiYXBpa2V5In0.kD70toP9EflHXqt6p4QpRSGhGEy8xQL_5YR4tR-cBhmQw8RPyqXxamL8xTFLvi9i35E9sRSK3AQUde2QImYDmw' \
             -H 'Content-Type: application/json' \
@@ -31,7 +29,7 @@ jobs:
 
           curl -X 'POST' \
             "https://internals.ca.jdo-dev.org/file?id=$id" \
-            -q \
+            -sS \
             -H 'accept: application/json' \
             -H 'Authorization: Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjMxMDc5NDEsImlzcyI6Imh0dHBzOi8vdXRpbGl0aWVzLmthZGlza2EuY29tLyIsImF1ZCI6Imh0dHBzOi8vdXRpbGl0aWVzLmthZGlza2EuY29tLyIsImlhdCI6MTYzMTU3MTk0MSwic3ViIjoiYXBpa2V5In0.kD70toP9EflHXqt6p4QpRSGhGEy8xQL_5YR4tR-cBhmQw8RPyqXxamL8xTFLvi9i35E9sRSK3AQUde2QImYDmw' \
             -H 'Content-Type: multipart/form-data' \
@@ -39,7 +37,7 @@ jobs:
 
           curl -X 'PATCH' \
             "https://internals.ca.jdo-dev.org/job?id=$id" \
-            -q \
+            -sS \
             -H 'accept: application/json' \
             -H 'Authorization: Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjMxMDc5NDEsImlzcyI6Imh0dHBzOi8vdXRpbGl0aWVzLmthZGlza2EuY29tLyIsImF1ZCI6Imh0dHBzOi8vdXRpbGl0aWVzLmthZGlza2EuY29tLyIsImlhdCI6MTYzMTU3MTk0MSwic3ViIjoiYXBpa2V5In0.kD70toP9EflHXqt6p4QpRSGhGEy8xQL_5YR4tR-cBhmQw8RPyqXxamL8xTFLvi9i35E9sRSK3AQUde2QImYDmw' \
             -H 'Content-Type: application/json' \
