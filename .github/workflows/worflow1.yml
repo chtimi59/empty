@@ -15,7 +15,7 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - name: push job to github-tasks
+      - name: Push job to github-tasks
         run: |          
           echo "::debug::Hi there!"
           pwd

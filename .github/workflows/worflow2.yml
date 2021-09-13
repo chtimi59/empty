@@ -18,3 +18,4 @@ jobs:
         run: |          
           echo "::debug::Hi there!"
           echo "::debug::payload: ${{ toJson(github.event.client_payload) }}"
+          exit 1 
