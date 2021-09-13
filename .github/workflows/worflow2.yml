@@ -18,4 +18,14 @@ jobs:
         run: |          
           echo "::debug::Hi there!"
           echo "::debug::payload: ${{ toJson(github.event.client_payload) }}"
-          exit 1 
+      
+      - name: step1
+        uses: actions/github-script@v3
+          with:
+            script: |
+                console.log("This is a script");
+                o = toJson(github.event.client_payload) ;
+                console.log(o);
+                console.log(o.id);
+                core.setFailed('envA and envB are not equivalent!');
+                
