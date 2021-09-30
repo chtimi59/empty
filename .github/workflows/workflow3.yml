@@ -19,15 +19,10 @@ jobs:
     steps:
       - id: step1
         run: |
-        if [[ $GITHUB_REF == refs/tags/*+ ]]; then
-          echo "::set-output name=TAG::release"
-        elif [[ $GITHUB_REF == 'refs/heads/master' ]]; then
-          echo "::set-output name=TAG::latest"
-        fi        
+          echo "::debug::Hi there!"
 
   job2:
     runs-on: ubuntu-latest
     needs: job1
     steps:
       - run: echo ${{needs.job1.outputs.tag}}
-            
