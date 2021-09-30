@@ -23,6 +23,6 @@ jobs:
 
   job2:
     runs-on: ubuntu-latest
-    needs: job1
+    needs: prerequist
     steps:
-      - run: echo ${{needs.job1.outputs.tag}}
+      - run: echo ${{needs.prerequist.outputs.tag}}
