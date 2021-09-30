@@ -15,8 +15,8 @@ jobs:
   prerequist:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./myaction
+      - uses: actions/checkout@v2      
+      - uses: ./.github/actions/myaction
         id: hello
         with:
           who-to-greet: 'Mona the Octocat'
