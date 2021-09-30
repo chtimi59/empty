@@ -41,9 +41,9 @@ jobs:
           echo "The time was ${{ github.ref }}"
           echo "The time was ${{ steps.meta.outputs.tag }}"
 
-          if [[ ${{ steps.meta.outputs.tag }} == "latest" ]]; then
+          if [[ "${{ steps.meta.outputs.tag }}" == "latest" ]]; then
             echo "MASTER"
-          elif [[ ! -z ${{ steps.meta.outputs.tag }} ]]; then
+          elif [[ ! -z "${{ steps.meta.outputs.tag }}" ]]; then
             echo "RELEASE"
           else
             echo "NONE"
