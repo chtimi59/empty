@@ -15,12 +15,25 @@ jobs:
   prerequist:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2      
+      - uses: actions/checkout@v2
       - uses: ./.github/actions/myaction
         id: hello
         with:
           who-to-greet: 'Mona the Octocat'
+
+      - name: Prepare
+        id: meta
+        run: |
+          TAG=
+          if [[ $GITHUB_REF == refs/tags/*+ ]]; then
+            TAG=${GITHUB_REF#refs/tags/}
+          elif [[ $GITHUB_REF == 'refs/heads/master' ]]; then
+            TAG=latest
+          fi
+          echo ::set-output name=tag::${TAG}
+
       - name: Get the output time
         run: |
+          contains('Hello world', 'llo')
           echo "The time was ${{ steps.hello.outputs.time }}"
           echo "The time was ${{ github.ref }}"
