@@ -49,3 +49,15 @@ jobs:
             echo "NONE"
           fi
 
+      - name: Master
+        if: ${{ steps.meta.outputs.tag && steps.meta.outputs.tag == 'latest' }}
+        run: echo "master"
+
+      - name: Release
+        if: ${{ steps.meta.outputs.tag && steps.meta.outputs.tag != 'latest' }}
+        run: echo "master"
+
+      - name: None
+        if: ${{ ! steps.meta.outputs.tag }}
+        run: echo "master"
+        
