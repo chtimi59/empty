@@ -14,15 +14,11 @@ jobs:
 
   prerequist:
     runs-on: ubuntu-latest
-    outputs:
-      tag: ${{ steps.step1.outputs.tag }}
     steps:
-      - id: step1
-        run: |
-          echo "::debug::Hi there!"
-
-  job2:
-    runs-on: ubuntu-latest
-    needs: prerequist
-    steps:
-      - run: echo ${{needs.prerequist.outputs.tag}}
+      - uses: actions/checkout@v2
+      - uses: ./myaction/action
+        id: hello
+        with:
+          who-to-greet: 'Mona the Octocat'
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"          
