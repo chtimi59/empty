@@ -33,7 +33,7 @@ jobs:
           elif [[ $GITHUB_REF == 'refs/heads/master' ]]; then
             echo "::set-output name=tag::latest"
           fi
-          echo "::set-output name=tag::latest"
+          #echo "::set-output name=tag::latest"
 
       - name: Get the output time
         run: |
@@ -45,5 +45,7 @@ jobs:
             echo "MASTER"
           elif [[ ! -z ${{ steps.meta.outputs.tag }} ]]; then
             echo "RELEASE"
+          else
+            echo "NONE"
           fi
 
