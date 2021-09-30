@@ -15,22 +15,24 @@ jobs:
   prerequist:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          
       - uses: ./.github/actions/myaction
         id: hello
         with:
           who-to-greet: 'Mona the Octocat'
 
-      - name: Prepare
-        id: meta
+      - id: meta
         run: |
           TAG=
-          if [[ $GITHUB_REF == refs/tags/*+ ]]; then
-            TAG=${GITHUB_REF#refs/tags/}
+          if [[ $GITHUB_REF =~ ^refs/tags/.*\+$ ]]; then
+            TAG=${GITHUB_REF:10:-1}
           elif [[ $GITHUB_REF == 'refs/heads/master' ]]; then
             TAG=latest
           fi
-          echo ::set-output name=tag::${TAG}
 
       - name: Get the output time
         run: |
