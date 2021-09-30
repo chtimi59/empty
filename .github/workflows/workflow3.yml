@@ -36,3 +36,4 @@ jobs:
         run: |
           echo "The time was ${{ steps.hello.outputs.time }}"
           echo "The time was ${{ github.ref }}"
+          echo "The time was ${{ steps.meta.outputs.tag }}"
