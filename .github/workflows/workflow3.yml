@@ -25,7 +25,8 @@ jobs:
         with:
           who-to-greet: 'Mona the Octocat'
 
-      - id: meta
+      - name: Define TAG
+        id: meta
         run: |
           if [[ $GITHUB_REF =~ ^refs/tags/.*\+$ ]]; then
             echo "::set-output name=tag::${GITHUB_REF:10:-1}"
