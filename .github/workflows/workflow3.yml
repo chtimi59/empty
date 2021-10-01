@@ -84,3 +84,20 @@ jobs:
             })
             console.log(rsp)
 
+      # https://github.com/actions/toolkit/tree/main/packages/core
+      # core.setFailed('Ceci est une error')
+      - uses: actions/github-script@v5
+        with:
+          script: |
+            console.log(context.payload.client_payload)
+            rsp = await github.rest.checks.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              check_run_id: 3772179351,
+              conclusion: 'failure',
+              output: {
+                title: 'hi there2!',
+                summary: 'youpie2!'
+              }
+            })
+            console.log(rsp)
