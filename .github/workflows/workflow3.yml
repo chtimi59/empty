@@ -79,8 +79,8 @@ jobs:
               name: 'code-coverage',
               status: 'in_progress',
               output: {
-                title: 'hi there!'
-                summary: "youpie!"
+                title: 'hi there!',
+                summary: 'youpie!''
               }
             })
             console.log(rsp)
