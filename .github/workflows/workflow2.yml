@@ -21,8 +21,7 @@ jobs:
       
       # https://github.com/actions/toolkit/tree/main/packages/core
       # core.setFailed('Ceci est une error')
-      - name: View context attributes
-        uses: actions/github-script@v4
+      - uses: actions/github-script@v5
         with:
           script: |
             console.log(context.payload.client_payload)
