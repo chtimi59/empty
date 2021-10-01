@@ -1,10 +1,10 @@
 
-name: checks-suite-update
+name: Github-Tasks
 on:
   repository_dispatch:
     types: [checks-suite-update]
 jobs:
-  Proxy:
+  Checks:
     runs-on: ubuntu-latest
     steps:
       #https://github.com/actions/github-script
@@ -27,5 +27,12 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            core.setFailed(`checks failed see ${context.payload.repository.html_url}/runs/${context.payload.client_payload.check_run_id}`)
+            const rsp = await github.rest.checks.get({
+              check_run_id: context.payload.client_payload.check_run_id,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+            console.log(rsp)
+            core.notice(`commit: ${context.payload.repository.html_url}/commit/6bb1e09932766ad748e0cc226eb8102fb8b77268`)
+            core.setFailed(`${context.payload.client_payload.output.script_name} failed see ${context.payload.repository.html_url}/runs/${context.payload.client_payload.check_run_id}`)
            
