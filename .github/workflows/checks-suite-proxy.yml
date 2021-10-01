@@ -1,0 +1,31 @@
+
+name: checks-suite-update
+on:
+  repository_dispatch:
+    types: [checks-suite-update]
+jobs:
+  Proxy:
+    runs-on: ubuntu-latest
+    steps:
+      #https://github.com/actions/github-script
+      #https://octokit.github.io/rest.js/v18#checks
+      #https://docs.github.com/en/rest/reference/checks
+      - uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.checks.update({
+              ...context.payload.client_payload,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+
+      # Used to send email
+      # note: by default user settings has "Send notifications for failed workflows only" set
+      # see https://github.com/settings/notifications
+      - name: Invalidate worflow
+        if: github.event.client_payload.conclusion == "failure"
+        uses: actions/github-script@v5
+        with:
+          script: |
+            core.setFailed(`checks failed see ${context.payload.repository.html_url}/runs/${context.payload.client_payload.check_run_id}`)
+           
