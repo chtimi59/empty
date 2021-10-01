@@ -61,7 +61,9 @@ jobs:
         if: ${{ ! steps.meta.outputs.tag }}
         run: echo "master"
 
-      - uses: actions/github-script@v4
+      #https://github.com/actions/github-script
+      #https://octokit.github.io/rest.js/v18#checks
+      - uses: actions/github-script@v5
         with:
           script: |
             console.log(context.payload.client_payload)
@@ -69,8 +71,10 @@ jobs:
             core.notice('commit: https://github.com/chtimi59/empty/commit/6bb1e09932766ad748e0cc226eb8102fb8b77268')
             core.notice('commit: [8b77268](https://github.com/chtimi59/empty/commit/6bb1e09932766ad748e0cc226eb8102fb8b77268)')
             core.notice(`commit: ${context.payload.repository.html_url}/commit/6bb1e09932766ad748e0cc226eb8102fb8b77268`)
-            github.checks.create({
+            
+            console.log(github.rest.checks.createSuite({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
               head_sha: '6bb1e09932766ad748e0cc226eb8102fb8b77268',
-              name: "Hello"
-            })
+            }))
 
