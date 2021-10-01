@@ -20,12 +20,15 @@ jobs:
           echo "::debug::payload: ${{ toJson(github.event.client_payload) }}"
       
       # https://github.com/actions/toolkit/tree/main/packages/core
+      # core.setFailed('Ceci est une error')
       - name: View context attributes
         uses: actions/github-script@v4
         with:
           script: |
             console.log(context.payload.client_payload)
             core.setFailed('Ceci est une error')
+            core.info('\u001b[31;46mRed foreground with a cyan background and \u001b[1mbold text at the end', {title : "on title"} )
             core.error('This is a bad error. This will also fail the build.')
+            core.warning('This is a bad error. This will also fail the build.')
             
 
