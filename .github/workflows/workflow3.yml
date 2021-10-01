@@ -72,9 +72,10 @@ jobs:
             core.notice('commit: [8b77268](https://github.com/chtimi59/empty/commit/6bb1e09932766ad748e0cc226eb8102fb8b77268)')
             core.notice(`commit: ${context.payload.repository.html_url}/commit/6bb1e09932766ad748e0cc226eb8102fb8b77268`)
             
-            console.log(github.rest.checks.createSuite({
+            rsp = await github.rest.checks.createSuite({
               owner: context.repo.owner,
               repo: context.repo.repo,
               head_sha: '6bb1e09932766ad748e0cc226eb8102fb8b77268',
-            }))
+            })
+            console.log(rsp)
 
