@@ -64,12 +64,11 @@ jobs:
       #https://github.com/actions/github-script
       #https://octokit.github.io/rest.js/v18#checks
       - uses: actions/github-script@v5
+        if: ${{ 0 == 1 }}
         with:
           script: |
             console.log(context.payload.client_payload)
             core.warning('Something went wrong, but it\'s not bad enough to fail the build.')
-            core.notice('commit: https://github.com/chtimi59/empty/commit/6bb1e09932766ad748e0cc226eb8102fb8b77268')
-            core.notice('commit: [8b77268](https://github.com/chtimi59/empty/commit/6bb1e09932766ad748e0cc226eb8102fb8b77268)')
             core.notice(`commit: ${context.payload.repository.html_url}/commit/6bb1e09932766ad748e0cc226eb8102fb8b77268`)
             
             rsp = await github.rest.checks.create({

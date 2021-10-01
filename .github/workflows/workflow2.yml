@@ -26,7 +26,13 @@ jobs:
         with:
           script: |
             console.log(context.payload.client_payload)
-            core.error('This is a bad error. This will also fail the build.')
-            core.warning('Something went wrong, but it\'s not bad enough to fail the build.')
-            core.notice('https://github.com/chtimi59/empty/commit/6bb1e09932766ad748e0cc226eb8102fb8b77268')
-            core.setFailed('Send Email?')
+            rsp = await github.rest.checks.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              check_run_id: 3772179351,
+              conclusion: 'success'
+              output: {
+                summary: 'youpie!'
+              }
+            })
+            console.log(rsp)
