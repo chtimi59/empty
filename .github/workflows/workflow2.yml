@@ -31,8 +31,8 @@ jobs:
               check_run_id: 3772179351,
               conclusion: 'success',
               output: {
-                title: 'hi there!',
-                summary: 'youpie!'
+                title: 'hi there2!',
+                summary: 'youpie2!'
               }
             })
             console.log(rsp)
