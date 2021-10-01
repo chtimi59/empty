@@ -80,6 +80,7 @@ jobs:
               status: 'in_progress',
               output: {
                 title: 'hi there!'
+                summary: "youpie!"
               }
             })
             console.log(rsp)
