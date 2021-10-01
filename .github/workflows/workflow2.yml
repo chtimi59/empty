@@ -30,8 +30,9 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               check_run_id: 3772179351,
-              conclusion: 'success'
+              conclusion: 'success',
               output: {
+                title: 'hi there!',
                 summary: 'youpie!'
               }
             })
