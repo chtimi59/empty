@@ -19,6 +19,7 @@ jobs:
           echo "::debug::Hi there!"
           echo "::debug::payload: ${{ toJson(github.event.client_payload) }}"
       
+      # https://github.com/actions/toolkit/tree/main/packages/core
       - name: View context attributes
         uses: actions/github-script@v4
         with:
@@ -26,4 +27,5 @@ jobs:
             console.log(context.payload.client_payload)
             core.setFailed('Ceci est une error')
             core.error('This is a bad error. This will also fail the build.')
+            
 
