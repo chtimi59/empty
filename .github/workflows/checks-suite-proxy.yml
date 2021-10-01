@@ -23,7 +23,7 @@ jobs:
       # note: by default user settings has "Send notifications for failed workflows only" set
       # see https://github.com/settings/notifications
       - name: Invalidate worflow
-        if: github.event.client_payload.conclusion == "failure"
+        if: github.event.client_payload.conclusion == 'failure'
         uses: actions/github-script@v5
         with:
           script: |
