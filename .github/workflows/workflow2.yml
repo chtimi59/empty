@@ -26,9 +26,6 @@ jobs:
         with:
           script: |
             console.log(context.payload.client_payload)
-            core.setFailed('Ceci est une error')
-            core.info('\u001b[31;46mRed foreground with a cyan background and \u001b[1mbold text at the end', {title : "on title"} )
             core.error('This is a bad error. This will also fail the build.')
-            core.warning('This is a bad error. This will also fail the build.')
-            
-
+            core.warning('Something went wrong, but it\'s not bad enough to fail the build.')
+            core.notice('Something happened that you might want to know about.')
