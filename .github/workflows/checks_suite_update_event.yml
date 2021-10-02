@@ -1,8 +1,8 @@
 
-name: Github-Tasks
+name: github-tasks
 on:
   repository_dispatch:
-    types: [checks-suite-update]
+    types: [checks_suite_update]
 jobs:
   Checks:
     runs-on: ubuntu-latest
@@ -19,8 +19,9 @@ jobs:
               repo: context.repo.repo,
             })
 
-      # Used to send email
-      # note: by default user settings has "Send notifications for failed workflows only" set
+      # Used to send email ! :)
+      # Why ? Well... by default user settings has the option
+      # "Send notifications for failed workflows only" set
       # see https://github.com/settings/notifications
       - name: Invalidate worflow
         if: github.event.client_payload.conclusion == 'failure'
