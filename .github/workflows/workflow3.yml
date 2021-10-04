@@ -72,6 +72,6 @@ jobs:
       - uses: actions/github-script@v5
         with:
           script: |
-            console.log(github.sha)
+            console.log(github)
             
 
