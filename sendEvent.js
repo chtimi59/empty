@@ -14,7 +14,7 @@ if (fs.existsSync(".env")) {
 // global param
 const param = {
     check_run_id: undefined,
-    state: "queued",
+    status: "queued",
     conclusion: undefined,
     github_url: "https://api.github.com/repos/chtimi59/empty/dispatches",
     github_token: process.env.GITHUB_TOKEN
@@ -32,8 +32,8 @@ function showUsage() {
 
     Options:
         --help|-h: show usage
-        --state: "queued" | "in_progress" | "completed"
-        --conclusion: "cancelled" | "failure" | "success"
+        --status: queued|in_progress
+        --conclusion: cancelled|failure|success|neutral|skipped|timed_out
     `);
 }
 
@@ -60,18 +60,18 @@ async function main(argv) {
                 showUsage();
                 return true;
             }
-            if (name === '--state') {
+            if (name === '--status') {
                 if (![ "queued", "in_progress" ].includes(arg)) {
-                    error("invalid state, queued|in_progress expected")
+                    error("invalid status, queued|in_progress expected")
                 }
-                param.state = arg
+                param.status = arg
                 break;
             }
             if (name === '--conclusion') {
                 if (![ "cancelled", "failure", "success", "neutral", "skipped", "timed_out" ].includes(arg)) {
                     error("invalid conclusion, cancelled|failure|success|neutral|skipped|timed_out expected")
                 }
-                param.state = "completed"
+                param.status = "completed"
                 param.conclusion = arg
                 break;
             }
@@ -161,7 +161,7 @@ async function run() {
     
     const client_payload = {
         check_run_id: param.check_run_id,
-        state: param.state,
+        status: param.status,
         conclusion: param.conclusion
     }
 
