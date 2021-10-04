@@ -73,13 +73,5 @@ jobs:
         with:
           script: |
             console.log(github.sha)
-            #rsp = await github.rest.checks.create({
-            #  owner: context.repo.owner,
-            #  repo: context.repo.repo,
-            #  head_sha: github.sha,
-            #  name: '',
-            #  status: 'queued'
-            #})
-            #console.log(rsp)
-
+            
 
