@@ -12,7 +12,6 @@ on:
 jobs:
 
   prerequist:
-    if: ${{ 0 == 1 }}
     runs-on: ubuntu-latest
     steps:
 
@@ -60,32 +59,16 @@ jobs:
         if: ${{ ! steps.meta.outputs.tag }}
         run: echo "master"
 
-  create_checks:
-    if: ${{ 1 == 1 }}
-    runs-on: ubuntu-latest
-    steps:
-
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - uses: actions/github-script@v5
+      - name: Create "Publish" check
+        uses: actions/github-script@v5
         with:
           script: |
-            const base = context.payload.repository.html_url
             const {status, data} = await github.rest.checks.create({
+              name: 'Publish',
               owner: context.repo.owner,
               repo: context.repo.repo,
               head_sha: context.sha,
-              name: 'Publish',
-              status: 'queued'
+              status: 'queued'              
             })
             console.log({ status })
-            console.log(`details: ${base}/runs/${data.id}`)
-            
-      - uses: actions/github-script@v5
-        with:
-          script: |
-            console.log("context", context)
-            console.log("core", core)
-            console.log("github", github)
+            console.log(`created check: ${context.payload.repository.html_url}/runs/${data.id}`)

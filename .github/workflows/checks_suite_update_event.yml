@@ -5,34 +5,39 @@ on:
     types: [checks_suite_update]
 jobs:
 
+  # --------------------------------------------------------------------------------
+  # This workflow acts as an event proxy,
+  # it updates github checks-suite, according "checks_suite_update" event payload
+  # --------------------------------------------------------------------------------
+  # https://github.com/actions/github-script
+  # https://octokit.github.io/rest.js/v18#checks
+  # https://docs.github.com/en/rest/reference/checks
+
   Checks:
 
     runs-on: ubuntu-latest
 
-    steps:
-      #https://github.com/actions/github-script
-      #https://octokit.github.io/rest.js/v18#checks
-      #https://docs.github.com/en/rest/reference/checks
+    steps:      
       - name: 'github.rest.checks.update()'
         uses: actions/github-script@v5
-        id: check
         with:
           script: |            
-            const base=context.payload.repository.html_url
-            const payload=context.payload.client_payload
-            core.notice(`details: ${base}/runs/${payload.check_run_id}`)
+            const client_payload=context.payload.client_payload
+            core.notice(`details: ${context.payload.repository.html_url}/runs/${client_payload.check_run_id}`)
             github.rest.checks.update({
-              ...payload,
+              ...client_payload,
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
 
-      # Used to send email ! :)
-      # Why ? Well... by default user settings has the option
-      # "Send notifications for failed workflows only" set
-      # see https://github.com/settings/notifications
+      # ----------------------------------------------
+      # This extra step is only used to send emails !
+      # ----------------------------------------------
+      # By default user settings has the option "Send notifications for failed workflows only" set.
+      # That's means that a check-suite failure will no necessarly send an an email.
+      # The workaround is to artificially set an error here.
       - name: Invalidate worflow
         if: github.event.client_payload.conclusion == 'failure'
         uses: actions/github-script@v5
         with:
-          script: core.setFailed(`Check failed`)
+          script: core.setFailed(`failure detected`)
