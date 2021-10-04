@@ -1,5 +1,5 @@
 
-name: worflow1
+name: MyWorkflow
 
 on:
   release:
@@ -68,10 +68,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      - id: youpie
-        run: |          
-          echo "::set-output name=Hallo::wilkommen"
 
       - uses: actions/github-script@v5
         with:
