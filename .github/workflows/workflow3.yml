@@ -1,7 +1,6 @@
 
 name: worflow1
 
-
 on:
   release:
     types:
@@ -34,7 +33,6 @@ jobs:
           elif [[ $GITHUB_REF == 'refs/heads/master' ]]; then
             echo "::set-output name=tag::latest"
           fi
-          #echo "::set-output name=tag::latest"
 
       - name: Get the output time
         run: |
@@ -62,45 +60,26 @@ jobs:
         if: ${{ ! steps.meta.outputs.tag }}
         run: echo "master"
 
-      #https://github.com/actions/github-script
-      #https://octokit.github.io/rest.js/v18#checks
-      - uses: actions/github-script@v5
-        if: ${{ 0 == 1 }}
-        with:
-          script: |
-            console.log(context.payload.client_payload)
-            core.warning('Something went wrong, but it\'s not bad enough to fail the build.')
-            core.notice(`commit: ${context.payload.repository.html_url}/commit/6bb1e09932766ad748e0cc226eb8102fb8b77268`)
-            
-            rsp = await github.rest.checks.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              head_sha: '6bb1e09932766ad748e0cc226eb8102fb8b77268',
-              name: 'code-coverage',
-              status: 'in_progress',
-              output: {
-                title: 'hi there!',
-                summary: 'youpie!'
-              }
-            })
-            console.log(rsp)
+  create JOB:
+    if: ${{ 1 == 1 }}
+    runs-on: ubuntu-latest
+    steps:
 
-      # https://github.com/actions/toolkit/tree/main/packages/core
-      # core.setFailed('Ceci est une error')
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - uses: actions/github-script@v5
-        if: ${{ 0 == 1 }}
         with:
           script: |
-            console.log(context.payload.client_payload)
-            rsp = await github.rest.checks.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              check_run_id: 3772179351,
-              conclusion: 'failure',
-              output: {
-                title: 'hi there2!',
-                summary: 'youpie2!'
-              }
-            })
-            console.log(rsp)
-            
+            console.log(github.sha)
+            #rsp = await github.rest.checks.create({
+            #  owner: context.repo.owner,
+            #  repo: context.repo.repo,
+            #  head_sha: github.sha,
+            #  name: '',
+            #  status: 'queued'
+            #})
+            #console.log(rsp)
+
+
