@@ -76,7 +76,11 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               head_sha: context.sha,
-              name: 'github-tasks',
+              name: 'Publish ',
               status: 'queued'
             })
-            console.log(rsp)
+            console.log({
+              status: rsp.status,
+              check_suite_id: data.id,
+              url: data.html_url
+            })

@@ -18,6 +18,8 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
+            core.notice(`commit: ${context.payload.repository.html_url}/commit/${data.head_sha}`)
+            core.notice(`see: ${context.payload.repository.html_url}/runs/${context.payload.client_payload.check_run_id}`
 
       # Used to send email ! :)
       # Why ? Well... by default user settings has the option
@@ -33,6 +35,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-            core.notice(`commit: ${context.payload.repository.html_url}/commit/${data.head_sha}`)
             core.setFailed(`${context.payload.client_payload.output.script_name} failed see ${context.payload.repository.html_url}/runs/${context.payload.client_payload.check_run_id}`)
            
