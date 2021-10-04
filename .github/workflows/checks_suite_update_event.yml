@@ -24,11 +24,13 @@ jobs:
           script: |            
             const client_payload=context.payload.client_payload
             core.notice(`details: ${context.payload.repository.html_url}/runs/${client_payload.check_run_id}`)
-            github.rest.checks.update({
+            const result = await github.rest.checks.update({
               ...client_payload,
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
+            console.log(result)
+            
 
       # ----------------------------------------------
       # This extra step is only used to send emails !
