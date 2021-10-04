@@ -68,8 +68,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
-      - run: |
+
+      - id: youpie
+        run: |          
           echo "::set-output name=Hallo::wilkommen"
 
       - uses: actions/github-script@v5

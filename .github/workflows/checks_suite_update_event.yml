@@ -22,11 +22,11 @@ jobs:
             const payload=context.payload.client_payload
             core.notice(`details: ${base}/runs/${payload.check_run_id}`)
             core.notice(`commit: ${base}/commit/${context.sha}`)
-            //github.rest.checks.update({
-            //...payload,
-            //owner: context.repo.owner,
-            //repo: context.repo.repo,
-            //})
+            github.rest.checks.update({
+              ...payload,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
 
       # Used to send email ! :)
       # Why ? Well... by default user settings has the option
