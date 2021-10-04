@@ -1,5 +1,5 @@
 
-name: github-tasks
+name: checks_suite_update
 on:
   repository_dispatch:
     types: [checks_suite_update]
