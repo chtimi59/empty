@@ -12,6 +12,7 @@ on:
 jobs:
 
   prerequist:
+    if: ${{ 0 == 1 }}
     runs-on: ubuntu-latest
     steps:
 

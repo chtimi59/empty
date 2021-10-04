@@ -1,0 +1,27 @@
+
+name: Test
+
+on:
+  release:
+    types:
+      - created
+  push:
+    branches:
+      - 'master'
+
+jobs:
+
+  Test:
+    if: ${{ 1 == 1 }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v5
+        with:
+          script: |
+            const { data } = await github.rest.checks.get({
+              check_run_id = 3792191235,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            })
+            console.log(data)
+          
