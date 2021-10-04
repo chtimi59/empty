@@ -14,11 +14,13 @@ jobs:
       #https://docs.github.com/en/rest/reference/checks
       - uses: actions/github-script@v5
         with:
-          script: |
-            core.notice(`commit: ${context.payload.repository.html_url}/commit/${context.sha}`)
-            core.notice(`see: ${context.payload.repository.html_url}/runs/${context.payload.client_payload.check_run_id}`)
+          script: |            
+            const base=context.payload.repository.html_url
+            const payload=context.payload.client_payload
+            core.notice(`details: ${base}/runs/${payload.check_run_id}`)
+            core.notice(`commit: ${base}/commit/${context.sha}`)
             github.rest.checks.update({
-              ...context.payload.client_payload,
+              ...payload,
               owner: context.repo.owner,
               repo: context.repo.repo,
             })

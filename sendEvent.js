@@ -61,12 +61,16 @@ async function main(argv) {
                 return true;
             }
             if (name === '--state') {
-                if (![ "queued", "in_progress", "completed" ].includes(arg)) error("invalid state")
+                if (![ "queued", "in_progress" ].includes(arg)) {
+                    error("invalid state, queued|in_progress expected")
+                }
                 param.state = arg
                 break;
             }
             if (name === '--conclusion') {
-                if (![ "cancelled", "failure", "success" ].includes(arg)) error("invalid conclusion")
+                if (![ "cancelled", "failure", "success", "neutral", "skipped", "timed_out" ].includes(arg)) {
+                    error("invalid conclusion, cancelled|failure|success|neutral|skipped|timed_out expected")
+                }
                 param.state = "completed"
                 param.conclusion = arg
                 break;
