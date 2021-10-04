@@ -68,8 +68,7 @@ jobs:
               name: 'Publish',
               owner: context.repo.owner,
               repo: context.repo.repo,
-              head_sha: context.sha,
-              status: 'queued'              
+              head_sha: context.sha
             })
             console.log({ status })
             console.log(`created check: ${context.payload.repository.html_url}/runs/${data.id}`)
