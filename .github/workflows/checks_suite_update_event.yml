@@ -8,22 +8,25 @@ jobs:
   Checks:
 
     runs-on: ubuntu-latest
+
     steps:
       #https://github.com/actions/github-script
       #https://octokit.github.io/rest.js/v18#checks
       #https://docs.github.com/en/rest/reference/checks
-      - uses: actions/github-script@v5
+      - name: 'github.rest.checks.update()'
+        uses: actions/github-script@v5
+        id: check
         with:
           script: |            
             const base=context.payload.repository.html_url
             const payload=context.payload.client_payload
             core.notice(`details: ${base}/runs/${payload.check_run_id}`)
             core.notice(`commit: ${base}/commit/${context.sha}`)
-            github.rest.checks.update({
-              ...payload,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            })
+            //github.rest.checks.update({
+            //...payload,
+            //owner: context.repo.owner,
+            //repo: context.repo.repo,
+            //})
 
       # Used to send email ! :)
       # Why ? Well... by default user settings has the option
