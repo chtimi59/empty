@@ -61,7 +61,7 @@ jobs:
         run: echo "master"
 
   create_checks:
-    if: ${{ 0 == 1 }}
+    if: ${{ 1 == 1 }}
     runs-on: ubuntu-latest
     steps:
 
