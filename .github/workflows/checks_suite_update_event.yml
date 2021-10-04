@@ -4,7 +4,9 @@ on:
   repository_dispatch:
     types: [checks_suite_update]
 jobs:
+
   Checks:
+
     runs-on: ubuntu-latest
     steps:
       #https://github.com/actions/github-script
@@ -13,13 +15,13 @@ jobs:
       - uses: actions/github-script@v5
         with:
           script: |
+            core.notice(`commit: ${context.payload.repository.html_url}/commit/${context.sha}`)
+            core.notice(`see: ${context.payload.repository.html_url}/runs/${context.payload.client_payload.check_run_id}`)
             github.rest.checks.update({
               ...context.payload.client_payload,
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-            core.notice(`commit: ${context.payload.repository.html_url}/commit/${data.head_sha}`)
-            core.notice(`see: ${context.payload.repository.html_url}/runs/${context.payload.client_payload.check_run_id}`
 
       # Used to send email ! :)
       # Why ? Well... by default user settings has the option
@@ -35,5 +37,4 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-            core.setFailed(`${context.payload.client_payload.output.script_name} failed see ${context.payload.repository.html_url}/runs/${context.payload.client_payload.check_run_id}`)
-           
+            core.setFailed(`${context.payload.client_payload.output.script_name} failed see ${context.payload.repository.html_url}/runs/${context.payload.client_payload.check_run_id}`)           
