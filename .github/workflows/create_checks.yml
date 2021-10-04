@@ -68,6 +68,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+        run: |
+          echo "::set-output name=Hallo::wilkommen"
 
       - uses: actions/github-script@v5
         with:
@@ -77,7 +79,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               head_sha: context.sha,
-              name: 'Publish ',
+              name: 'Publish',
               status: 'queued'
             })
             console.log({ status })
@@ -86,5 +88,6 @@ jobs:
       - uses: actions/github-script@v5
         with:
           script: |
-            console.log(context)
-            core.notice(`details!!`)
+            console.log("context", context)
+            console.log("core", core)
+            console.log("github", github)
