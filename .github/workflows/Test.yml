@@ -36,8 +36,8 @@ jobs:
           echo "foo = ${{ steps.thisStep.outputs.foo }}"
 
       - name: test share var with script
-          uses: actions/github-script@v5
-          with:
-            script: |
-              const payload = JSON.stringify(github.context.payload, undefined, 2)
-              console.log(`The event payload: ${payload}`);
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const payload = JSON.stringify(github.context.payload, undefined, 2)
+            console.log(`The event payload: ${payload}`);
