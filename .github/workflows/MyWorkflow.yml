@@ -60,7 +60,7 @@ jobs:
         if: ${{ ! steps.meta.outputs.tag }}
         run: echo "master"
 
-      - name: Create "Publish" check
+      - name: Create "Publish" check 
         if: ${{ 1 == 0 }}
         uses: actions/github-script@v5
         with:
