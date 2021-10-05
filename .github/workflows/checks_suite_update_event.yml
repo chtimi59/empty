@@ -24,6 +24,7 @@ jobs:
           script: |            
             const client_payload=context.payload.client_payload
             core.notice(`details: ${context.payload.repository.html_url}/runs/${client_payload.check_run_id}`)
+            core.notice(`update { status: ${client_payload.status}, conclusion: ${client_payload.conclusion} }`)
             const result = await github.rest.checks.update({
               ...client_payload,
               owner: context.repo.owner,
