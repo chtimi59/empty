@@ -34,6 +34,7 @@ function showUsage() {
         --help|-h: show usage
         --status: queued|in_progress
         --conclusion: cancelled|failure|success|neutral|skipped|timed_out
+        --url: github api url
     `);
 }
 
@@ -73,6 +74,10 @@ async function main(argv) {
                 }
                 param.status = "completed"
                 param.conclusion = arg
+                break;
+            }
+            if (name === '--url') {
+                param.github_url = arg
                 break;
             }
             showUsage();
