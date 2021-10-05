@@ -2,20 +2,18 @@
 name: Test
 
 on:
-  release:
-    types:
-      - created
-  push:
-    branches:
-      - 'master'
+  [push]
 
 jobs:
 
   Test:
-    if: ${{ 0 == 1 }}
+    if: True
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v5
+
+      - name: Get github check
+        if: false
+        uses: actions/github-script@v5
         with:
           script: |
             const { data } = await github.rest.checks.get({
@@ -24,4 +22,22 @@ jobs:
               repo: context.repo.repo,
             })
             console.log(data)
-          
+
+      - name: test share var with script
+        if: true
+        uses: actions/github-script@v5
+        id: thisStep
+        with:
+          script: |
+            core.setOutput("foo", "hello world");
+
+      - name: read var
+        run: |
+          echo "foo = ${{ steps.thisStep.outputs.foo }}"
+
+      - name: test share var with script
+          uses: actions/github-script@v5
+          with:
+            script: |
+              const payload = JSON.stringify(github.context.payload, undefined, 2)
+              console.log(`The event payload: ${payload}`);
