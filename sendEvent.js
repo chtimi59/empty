@@ -134,19 +134,23 @@ function httpsRequest(
             reporter = options.valid.includes(res.statusCode)
                 ? resolve
                 : reject;
-            res.on('data', data => {
+
+            const body = [];
+            res.on('data', body.push)
+            res.on('end', () => {
                 reporter({
-                    data,
+                    data: Buffer.concat(body),
                     statusCode: res.statusCode,
                     headers: res.headers,
                 });
             });
         });
+        
         req.on('error', e => {
-            error(
-                `httpsRequest('https://${requestConf.hostname}:${requestConf.port}')\n${e}`,
-            );
+            const reqUrl = `https://${requestConf.hostname}:${requestConf.port}`
+            reject(`httpsRequest(${reqUrl})\n${e}`);
         });
+
         if (options.data != undefined) req.write(options.data);
         req.end();
     });
