@@ -1,0 +1,20 @@
+
+name: firefox
+on:
+  repository_dispatch:
+    types: [create-firefox-docker]
+jobs:
+
+  docker-agent:
+
+      runs-on: ubuntu-latest
+
+      name: Push JS Agent to docker
+      steps:
+
+        - uses: actions/checkout@v2        
+        - name: get xpi file
+          run: |
+            echo ${{ github.event.client_payload.xpi }}"
+            echo ${{ github.event.client_payload.tag }}"
+            
