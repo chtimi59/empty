@@ -1,8 +1,8 @@
 
-name: some_hook
+name: on-firefox-extension-signed
 on:
   repository_dispatch:
-    types: [some_hook]
+    types: [on-firefox-extension-signed]
 jobs:
 
   Job1:
