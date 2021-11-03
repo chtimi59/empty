@@ -28,6 +28,7 @@ jobs:
       - name: Define TAG
         id: meta
         run: |
+          echo '$GITHUB_SHA'
           if [[ $GITHUB_REF =~ ^refs/tags/.*\+$ ]]; then
             echo "::set-output name=tag::${GITHUB_REF:10:-1}"
           elif [[ $GITHUB_REF == 'refs/heads/master' ]]; then
