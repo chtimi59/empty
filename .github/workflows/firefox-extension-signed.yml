@@ -26,7 +26,7 @@ jobs:
       - name: get xpi file
         run: |  
           cd docker/kd-moz
-          curl "https://github-tasks.kadiska.com/jobs/78a4fc1316ab458e82d1c068e7352cec/firefox_extension.xpi" \
+          curl "https://github-tasks.kadiska.com/jobs/${{ github.event.client_payload.id }}/firefox_extension.xpi" \
                 --output firefox_extension.xpi
           ls
 
@@ -34,6 +34,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: webext-mozilla-docker
-          path: docker/kd-moz/firefox_extension.xpi
+          path: docker/kd-moz
           retention-days: 15
 
