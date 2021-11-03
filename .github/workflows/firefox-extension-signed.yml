@@ -1,18 +1,39 @@
 
-name: firefox_signed_event
+name: firefox
+
 on:
   repository_dispatch:
     types: [firefox_signed_event]
+
 jobs:
 
-  Job1:
+  docker-mozilla:
 
     runs-on: ubuntu-latest
 
     steps:      
-      - name: 'step1-'
+      - name: 'logs'
         uses: actions/github-script@v5
         with:
           script: |            
             const client_payload=context.payload.client_payload            
             console.log(client_payload)
+
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.client_payload.commit_sha }}
+
+      - name: get xpi file
+        run: |  
+          cd docker/kd-moz
+          curl "https://github-tasks.kadiska.com/jobs/78a4fc1316ab458e82d1c068e7352cec/firefox_extension.xpi" \
+                --output firefox_extension.xpi
+          ls
+
+      - name: Create archive 'webext-mozilla'
+        uses: actions/upload-artifact@v2
+        with:
+          name: webext-mozilla-docker
+          path: docker/kd-moz/firefox_extension.xpi
+          retention-days: 15
+
