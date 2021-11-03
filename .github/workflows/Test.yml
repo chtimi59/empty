@@ -36,6 +36,7 @@ jobs:
           echo $GITHUB_SHA
           echo '$GITHUB_SHA'
           echo '${GITHUB_SHA}'
+          echo '${{ github.sha }}'
           echo "foo = ${{ steps.thisStep.outputs.foo }}"
 
       - name: test share var with script
