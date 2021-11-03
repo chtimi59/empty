@@ -33,6 +33,7 @@ jobs:
 
       - name: read var
         run: |
+          echo '$GITHUB_SHA'
           echo "foo = ${{ steps.thisStep.outputs.foo }}"
 
       - name: test share var with script
