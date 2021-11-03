@@ -1,8 +1,8 @@
 
-name: on-firefox-extension-signed
+name: firefox_signed_event
 on:
   repository_dispatch:
-    types: [on-firefox-extension-signed]
+    types: [firefox_signed_event]
 jobs:
 
   Job1:
