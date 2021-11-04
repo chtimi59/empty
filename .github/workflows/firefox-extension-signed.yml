@@ -34,7 +34,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const script = require('docker/kd-moz/createUpdate.js')
+            const script = require('./docker/kd-moz/createUpdate.js')
             await script({github, context, core})
 
       - name: Create archive 'webext-mozilla'
