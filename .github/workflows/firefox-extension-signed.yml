@@ -24,9 +24,9 @@ jobs:
         run: |
           cd docker/kd-moz
           mkdir -p www
-          curl "https://github-tasks.kadiska.com/jobs/${{ github.event.client_payload.id }}/manifest.json" \
-                --output www//manifest.json
-          curl "https://github-tasks.kadiska.com/jobs/${{ github.event.client_payload.id }}/firefox_extension.xpi" \
+          curl "${{ github.event.client_payload.job_url }}/manifest.json" \
+                --output www/manifest.json
+          curl "${{ github.event.client_payload.job_url }}/firefox_extension.xpi" \
                 --output www/firefox_extension.xpi
           find
 
@@ -34,8 +34,10 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
+            const extension_id = context.payload.client_payload.extension_id
+            const base_url = context.payload.client_payload.base_url
             const script = require('./docker/kd-moz/createUpdate.js')
-            await script({github, context, core})
+            await script(base_url, extension_id)
 
       - name: Create archive 'webext-mozilla'
         uses: actions/upload-artifact@v2
