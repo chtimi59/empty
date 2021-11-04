@@ -1,4 +1,3 @@
-
 name: firefox
 
 on:
@@ -6,29 +5,37 @@ on:
     types: [firefox_signed_event]
 
 jobs:
-
   docker-mozilla:
-
     runs-on: ubuntu-latest
 
-    steps:      
-      - name: 'logs'
+    steps:
+      - name: "logs"
         uses: actions/github-script@v5
         with:
-          script: |            
-            const client_payload=context.payload.client_payload            
+          script: |
+            const client_payload=context.payload.client_payload
             console.log(client_payload)
 
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.client_payload.commit_sha }}
 
-      - name: get xpi file
-        run: |  
+      - name: get xpi and manifest file
+        run: |
           cd docker/kd-moz
+          mkdir -p www
+          curl "https://github-tasks.kadiska.com/jobs/${{ github.event.client_payload.id }}/manifest.json" \
+                --output www//manifest.json
           curl "https://github-tasks.kadiska.com/jobs/${{ github.event.client_payload.id }}/firefox_extension.xpi" \
-                --output firefox_extension.xpi
-          ls
+                --output www/firefox_extension.xpi
+          find
+
+      - name: create update.json
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const script = require('docker/kd-moz/createUpdate.js')
+            await script({github, context, core})
 
       - name: Create archive 'webext-mozilla'
         uses: actions/upload-artifact@v2
@@ -36,4 +43,3 @@ jobs:
           name: webext-mozilla-docker
           path: docker/kd-moz
           retention-days: 15
-
